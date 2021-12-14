@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <body>
+    <title>Website for EDD</title>
+    <div class="container">
+        <p id="EDD"></p>
+    </div>
+</body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-analytics.js";
+        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyBjwQUYmH30_UJEZQLmkrDb6nsK7dJyKJc",
+            authDomain: "edd1-768ce.firebaseapp.com",
+            databaseURL: "https://edd1-768ce-default-rtdb.firebaseio.com",
+            projectId: "edd1-768ce",
+            storageBucket: "edd1-768ce.appspot.com",
+            messagingSenderId: "502637728966",
+            appId: "1:502637728966:web:da20eacc4c44111d83b3c7"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        var dbRef = getDatabase(app);
+        var cardsRef = ref(dbRef, 'cards');
+        const cardRef = ref(dbRef, 'cards/');
+        onValue(cardRef, (snapshot) => {
+            var str = "";
+            const data = snapshot.val();
+            //console.log(data["RFID"])
+            for(var k in data){
+                var v = data[k];
+                if(v["value"]){
+                    str+=v["name"];
+                }
+                console.log(v)
+            }
+            //data.forEach()
+            document.getElementById("EDD").innerHTML = str;
+            //document.getElementById("EDD").innerHTML = data.name;
+
+        });
+
+
+      </script>
+    -->
+    <script type = "module" src="script.js"></script>
+</html>
