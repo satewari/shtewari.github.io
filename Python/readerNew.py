@@ -28,21 +28,13 @@ try:
         
         value = db.child("cards").child(idq).child("value").get().val()
         if value:
-            totalcount-=2
+            totalcount-=1
             currCount = db.child("cards").child(idq).child("counter").get().val()
             print("Current count", currCount)
             db.child("cards").child(idq).child("counter").set(0)
-            objs = db.child("cards").get()
-            for obj in objs.each():
-                print(obj.key())
-                myobj = db.child("cards").child(obj.key())
-                currVal = myobj.child("counter").get().val()
-                if(currVal>currCount):
-                    myobj.child("counter").set(currVal-1)
         else:
             db.child("cards").child(idq).child("counter").set(totalcount)
         db.child("cards").child(idq).child("value").set(not value)
-
         sleep(1)
 
 finally:
