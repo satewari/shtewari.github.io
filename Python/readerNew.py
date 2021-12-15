@@ -27,9 +27,9 @@ try:
         idq, text = reader.read()
         totalcount+=1
 
-        if(idq == "SHUTDOWN"){
+        if(idq == "SHUTDOWN"):
             os.system("sudo shutdown -h now")
-        }
+        
         
         value = db.child("cards").child(idq).child("value").get().val()
         if value:
