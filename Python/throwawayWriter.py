@@ -23,7 +23,7 @@ try:
         reader.write(cardName)
         print("Written! Place again to read.")
         idq, text = reader.read()
-        print("The name of the card is "+idq)
+        print("The name of the card is "+str(idq))
         sleep(1)
 
 finally:
