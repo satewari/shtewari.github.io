@@ -1,7 +1,5 @@
-#!/usr/bin/env python
 import serial
 import pyrebase
-import os
 import RPi.GPIO as GPIO
 from time import sleep
 from mfrc522 import SimpleMFRC522
@@ -19,27 +17,13 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
-totalcount = 0
-
 try:
     while(True):
-        print("Place tag.")
+        cardName = input("Name?")
+        reader.write(cardName)
+        print("Written! Place again to read.")
         idq, text = reader.read()
-        totalcount+=1
-
-        if(idq == "SHUTDOWN"){
-            os.system("sudo shutdown -h now")
-        }
-        
-        value = db.child("cards").child(idq).child("value").get().val()
-        if value:
-            totalcount-=1
-            currCount = db.child("cards").child(idq).child("counter").get().val()
-            print("Current count", currCount)
-            db.child("cards").child(idq).child("counter").set(0)
-        else:
-            db.child("cards").child(idq).child("counter").set(totalcount)
-        db.child("cards").child(idq).child("value").set(not value)
+        print("The name of the card is "+idq)
         sleep(1)
 
 finally:
