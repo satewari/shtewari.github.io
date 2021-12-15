@@ -27,7 +27,7 @@ try:
         idq, text = reader.read()
         totalcount+=1
 
-        if(idq == "SHUTDOWN"):
+        if(idq == 670003305264):
             os.system("sudo shutdown -h now")
         
         
