@@ -19,11 +19,12 @@ var dbRef = getDatabase(app);
 var cardsRef = ref(dbRef, 'cards');
 const cardRef = ref(dbRef, 'cards/');
 onValue(cardRef, (snapshot) => {
+    //Add code for playing a SOUND in here.
     var str = "";
     const data = snapshot.val();
-    //console.log(data["RFID"])
-    const StrA = []
-    const CounterA = []
+    var StrA = [];
+    var newStr = "";
+    var sorted = [];
     for(var k in data){
         var v = data[k];
         if(v["value"]){
@@ -31,8 +32,17 @@ onValue(cardRef, (snapshot) => {
             CounterA.push(v["counter"])**/
             //v["counter"][]
             str+=v["name"];
+            StrA.push(v["counter"]+v["name"]);
+            //console.log(StrA)
+            sorted = StrA.sort((a, b) => {
+                return a.localeCompare(b, undefined, {
+                  numeric: true,
+                  sensitivity: 'base'
+                })
+              })
+            console.log(sorted);
         }
-        console.log(v)
+        //console.log(v)
     }
     /**data.forEach()
     CounterA.sort(function(a,b){return a-b});
@@ -49,7 +59,27 @@ onValue(cardRef, (snapshot) => {
             }
         }
     }**/
+    /**for(var k in data){
+        //print(k)
+        var v = data[k]
+        //print(v)
+        if(v["counter"]) {
+        }
+        
+    }**/
+    console.log(sorted)
+    console.log(newStr)
+    const regex = /^[0-9]{1,4}/g;
+    for(var word in sorted){
+        console.log(sorted[word])
+        if(word != sorted.length-1){
+            newStr+=(sorted[word].replace(regex,'')+", ");
+            console.log(sorted[word].match(regex));
 
-    document.getElementById("EDD").innerHTML = str;
+        } else {
+            newStr+=sorted[word].replace(regex, '');
+        }
+    }
+    document.getElementById("EDD").innerHTML = newStr;
     //document.getElementById("EDD").innerHTML = data.name
 });
