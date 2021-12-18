@@ -28,6 +28,13 @@ try:
         totalcount+=1
 
         if(idq == 670003305264):
+            cards = db.child("cards").get()
+            for card in cards.each():
+                if(card.val()['value']):
+                    print(cards.key())
+                    db.child("cards").child(card.key()).child("value").set(False)
+                    db.child("cards").child(card.key()).child("counter").set(0)
+                    print("Changed "+card.key())
             os.system("sudo shutdown -h now")
         
         

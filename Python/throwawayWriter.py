@@ -1,10 +1,10 @@
-import serial
+#import serial
 import pyrebase
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 from time import sleep
-from mfrc522 import SimpleMFRC522
+#from mfrc522 import SimpleMFRC522
 
-reader = SimpleMFRC522()
+#reader = SimpleMFRC522()
 firebaseConfig = {
     "apiKey": "AIzaSyBjwQUYmH30_UJEZQLmkrDb6nsK7dJyKJc",
     "authDomain": "edd1-768ce.firebaseapp.com",
@@ -17,6 +17,16 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
+cards = db.child("cards").get()
+
+for card in cards.each():
+    if(card.val()['value']):
+        print(cards.key())
+        db.child("cards").child(card.key()).child("value").set(False)
+        db.child("cards").child(card.key()).child("counter").set(0)
+        print("Changed "+card.key())
+
+'''
 try:
     while(True):
         cardName = input("Name?")
@@ -28,3 +38,4 @@ try:
 
 finally:
     GPIO.cleanup()
+'''
