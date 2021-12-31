@@ -81,6 +81,6 @@ onValue(cardRef, (snapshot) => {
         }
     }
     document.getElementById("EDD").innerHTML = newStr;
-    document.getElementById("EDDIMG").innerHTML = "<img src=/UnoCards/UnoB0/>"
+    document.getElementById("EDDIMG").innerHTML = "<img src='UnoCards/UnoB0.png'>"
     //document.getElementById("EDD").innerHTML = data.name
 });
