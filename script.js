@@ -18,6 +18,34 @@ const analytics = getAnalytics(app);
 var dbRef = getDatabase(app);
 var cardsRef = ref(dbRef, 'cards');
 const cardRef = ref(dbRef, 'cards/');
+
+function buildTable(tableId, values, wrapSize, elementTransformFunc) {
+    wrapSize = wrapSize || 100;
+    var tableId = document.getElementById(tableId);
+
+    if (tableId && tableId.childNodes.length > 0)
+        tableId.removeChild(tableId.childNodes[0]);
+
+    if (!tableId || !values || values.length === 0) {
+        console.log(`Table Id = ${tableId}, values = ${values}.. Missing input, Exiting`);
+        return;
+    }
+
+    var tableElement = document.createElement("table");
+    tableId.appendChild(tableElement);
+
+    var tableRow;
+    values.split(",").forEach(function (element, index) {
+        if (index % wrapSize == 0) {
+            tableRow = document.createElement("tr");
+            tableElement.appendChild(tableRow);
+        }
+        var cellData = document.createElement("td");
+        cellData.innerHTML = elementTransformFunc ? elementTransformFunc(element.trim()) : element.trim();
+        cellData.style.padding = "5px";
+        tableRow.appendChild(cellData);
+    })
+}
 onValue(cardRef, (snapshot) => {
     //Add code for playing a SOUND in here.
     var str = "";
@@ -40,7 +68,7 @@ onValue(cardRef, (snapshot) => {
                   sensitivity: 'base'
                 })
               })
-            console.log(sorted);
+            //console.log(sorted);
         }
         //console.log(v)
     }
@@ -67,20 +95,22 @@ onValue(cardRef, (snapshot) => {
         }
         
     }**/
-    console.log(sorted)
-    console.log(newStr)
+    //console.log(sorted)
+    //console.log(newStr)
     const regex = /^[0-9]{1,4}/g;
     for(var word in sorted){
-        console.log(sorted[word])
+        //console.log(sorted[word])
         if(word != sorted.length-1){
             newStr+=(sorted[word].replace(regex,'')+", ");
-            console.log(sorted[word].match(regex));
+            //console.log(sorted[word].match(regex));
 
         } else {
             newStr+=sorted[word].replace(regex, '');
         }
     }
     document.getElementById("EDD").innerHTML = newStr;
-    document.getElementById("EDDIMG").innerHTML = "<img src='UnoCards/UnoB0.png'>"
+    buildTable("EDDIMG", newStr, 6, function (e) {
+        return `<img style="width:50%" src=${/UnoCards/ + e+'.png'}>`;
+    })
     //document.getElementById("EDD").innerHTML = data.name
 });
