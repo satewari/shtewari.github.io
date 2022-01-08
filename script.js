@@ -22,7 +22,6 @@ const cardRef = ref(dbRef, 'cards/');
 function buildTable(tableId, values, wrapSize, elementTransformFunc) {
     wrapSize = wrapSize || 100;
     var tableId = document.getElementById(tableId);
-
     if (tableId && tableId.childNodes.length > 0)
         tableId.removeChild(tableId.childNodes[0]);
 
@@ -31,21 +30,50 @@ function buildTable(tableId, values, wrapSize, elementTransformFunc) {
         return;
     }
 
+    var valuesArray = values.split(",");
+
     var tableElement = document.createElement("table");
     tableId.appendChild(tableElement);
+    tableElement.style.textAlign = "center";
+    tableElement.style.borderSpacing = 0;
+    tableElement.style.borderCollapse = "collapse";
 
     var tableRow;
-    values.split(",").forEach(function (element, index) {
+    tableRow = document.createElement("tr");
+    tableElement.appendChild(tableRow);
+
+    var numColumns = valuesArray.length < wrapSize ? valuesArray.length : wrapSize;
+    var cellData;
+    for (var k = 0; k <= numColumns; k++) {
+        cellData = document.createElement("td");
+        cellData.innerHTML = "<h2>" + (k === 0 ? "" : k) + "</h2>";
+        cellData.style.padding = "10px";
+        cellData.style.border = "1px solid #000000";
+        cellData.style.margin = 0;
+        tableRow.appendChild(cellData);
+    }
+
+    valuesArray.forEach(function (element, index) {
+        var cellData;
         if (index % wrapSize == 0) {
             tableRow = document.createElement("tr");
             tableElement.appendChild(tableRow);
+            cellData = document.createElement("td");
+            cellData.innerHTML = "<h2>" + (1 + Math.ceil(index / wrapSize)) + "</h2>";
+            cellData.style.padding = "10px";
+            cellData.style.border = "1px solid #000000";
+            cellData.style.margin = 0;
+            tableRow.appendChild(cellData);
         }
-        var cellData = document.createElement("td");
+        cellData = document.createElement("td");
         cellData.innerHTML = elementTransformFunc ? elementTransformFunc(element.trim()) : element.trim();
         cellData.style.padding = "5px";
+        cellData.style.border = "1px solid #000000";
+        cellData.style.margin = 0;
         tableRow.appendChild(cellData);
     })
 }
+
 onValue(cardRef, (snapshot) => {
     //Add code for playing a SOUND in here.
     var str = "";
