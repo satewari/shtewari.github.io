@@ -84,53 +84,21 @@ onValue(cardRef, (snapshot) => {
     for(var k in data){
         var v = data[k];
         if(v["value"]){
-            /**StrA.push(v["name"])
-            CounterA.push(v["counter"])**/
-            //v["counter"][]
             str+=v["name"];
             StrA.push(v["counter"]+v["name"]);
-            //console.log(StrA)
             sorted = StrA.sort((a, b) => {
                 return a.localeCompare(b, undefined, {
                   numeric: true,
                   sensitivity: 'base'
                 })
               })
-            //console.log(sorted);
         }
-        //console.log(v)
     }
-    /**data.forEach()
-    CounterA.sort(function(a,b){return a-b});
-    if(CounterA[1]==1){
-        for(let i = 1; i<CounterA.length; i++) {
-            CounterA[i]=CounterA[i]+1;
-        }
-    } else {
-        for(let i = 0; i< CounterA.length; i++){
-            if (CounterA[i+1]-CounterA[i]!=1){
-                for(let v = i; v<CounterA.length; v++){
-                    CounterA[v]=Counter[v]-1;
-                }
-            }
-        }
-    }**/
-    /**for(var k in data){
-        //print(k)
-        var v = data[k]
-        //print(v)
-        if(v["counter"]) {
-        }
-        
-    }**/
-    //console.log(sorted)
-    //console.log(newStr)
+    
     const regex = /^[0-9]{1,4}/g;
     for(var word in sorted){
-        //console.log(sorted[word])
         if(word != sorted.length-1){
             newStr+=(sorted[word].replace(regex,'')+", ");
-            //console.log(sorted[word].match(regex));
 
         } else {
             newStr+=sorted[word].replace(regex, '');
